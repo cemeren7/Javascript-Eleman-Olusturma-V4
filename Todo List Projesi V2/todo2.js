@@ -4,11 +4,15 @@ const todoval = document.querySelector("#todo-value"); // todo degeri alacagım�
 const filtertd = document.querySelector("#filter-todo"); // filtreleme yapacagımız input
 const listcontact = document.querySelector("#list-contact"); // liste elemanlarını kapsayan ul etiketi
 const target = document.querySelector("#target-contact");
+const btn = document.querySelector("#btn-task");
+const btnreset = document.querySelector("#btn-reset");
+
 // querySelector Her Zaman esnek bir şeçim saglar
 todofrm.addEventListener("submit", todovalue); // sumbit olayı
 todofrm.addEventListener("reset", todoreset); // reset olayı
 target.addEventListener("click", selectdiv); // filter olayı
 filtertd.addEventListener("keyup", filtertodo);
+todoval.addEventListener("keyup", disablebtn);
 
 function todovalue(e) {
   e.preventDefault(); // sayfanın yenilenmesini engelleyen method
@@ -38,6 +42,9 @@ function newtodo(todonew) {
   a.appendChild(i);
   li.appendChild(a);
   listcontact.appendChild(li);
+
+  btnreset.disabled = false;
+  filtertd.disabled=false;
 
   setTimeout(function () {
     todoval.value = "";
@@ -108,3 +115,12 @@ function filtertodo(e) {
     alertshow("warning", "Filtreleme İçin Lütfen Todo Giriniz");
   }
 }
+
+function disablebtn() {
+  const val = todoval.value.trim();
+  if (val == null || val == "") {
+  } else if (val != null || val != "") {
+    btn.disabled = false;
+  }
+}
+
