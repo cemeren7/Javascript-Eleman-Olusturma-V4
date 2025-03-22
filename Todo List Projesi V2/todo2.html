@@ -28,10 +28,10 @@
             placeholder="Bir Görev İsmi Girin"
             id="todo-value"
           />
-          <button type="submit" class="btn btn-success mt-3">
+          <button type="submit" class="btn btn-success mt-3" disabled id="btn-task">
             Görev Oluştur
           </button>
-          <button type="reset" class="btn btn-success mt-3">
+          <button type="reset" class="btn btn-success mt-3" disabled id="btn-reset">
             Görevleri Temizle
           </button>
         </form>
@@ -46,6 +46,7 @@
             class="form-control text-center"
             placeholder="Filtreleme Yap"
             id="filter-todo"
+            disabled
           />
         </form>
         <ul class="list-group mt-3" id="list-contact">
