@@ -119,6 +119,7 @@ function filtertodo(e) {
 function disablebtn() {
   const val = todoval.value.trim();
   if (val == null || val == "") {
+    btn.disabled = true;
   } else if (val != null || val != "") {
     btn.disabled = false;
   }
