@@ -6,7 +6,6 @@ const listcontact = document.querySelector("#list-contact"); // liste elemanlar�
 const target = document.querySelector("#target-contact");
 const btn = document.querySelector("#btn-task");
 const btnreset = document.querySelector("#btn-reset");
-
 // querySelector Her Zaman esnek bir şeçim saglar
 todofrm.addEventListener("submit", todovalue); // sumbit olayı
 todofrm.addEventListener("reset", todoreset); // reset olayı
@@ -44,7 +43,6 @@ function newtodo(todonew) {
   listcontact.appendChild(li);
 
   btnreset.disabled = false;
-  filtertd.disabled=false;
 
   setTimeout(function () {
     todoval.value = "";
@@ -59,6 +57,13 @@ function newtodo(todonew) {
   //   const selectcolor = colorrandom[randomcolor]; // random colorda bulunan degere karsılık gelen rengi şeçer
   //   colorlist.style.color = `${selectcolor}`; // şeçilen rengi yazı rengi ile degiştirir
   // });
+
+  const todos = document.querySelectorAll(".list-group-item"); // her defasında güncel haliyle todoları alır
+
+  if (todos.length > 1) {
+    // ekranda 1 den fazla 1 dahik degil todo varsa filtreleme inputunu aktif yap  aksi halde hale pasif
+    filtertd.disabled = false;
+  }
 }
 
 function alertshow(type, message) {
@@ -75,19 +80,14 @@ function alertshow(type, message) {
 function todoreset() {
   const listtodo = document.querySelectorAll(".list-group-item");
   if (listtodo.length > 0) {
-    // ilk yol
-    // listtodo.forEach(function (list) {
-    //   list.remove();
-    // });
-
-    // ikinci yol
     for (let i = 0; i < listtodo.length; i++) {
       listtodo[i].remove();
     }
     alertshow("success", "Tüm Todolar Temizlendi");
-  } else {
-    alertshow("warning", "Ekranda Herhangi Bir Todo Bulunmuyor");
   }
+  btnreset.disabled = true;
+  btn.disabled = true;
+  filtertd.disabled = true;
 }
 
 function selectdiv(e) {
@@ -95,6 +95,13 @@ function selectdiv(e) {
     // eger tıklanan eleman bu class sahipse çalış
     const litodo = e.target.parentElement.parentElement; // i etiketinin evebeyni a onunda üstü onunda üstü li dir ve li elemanı yakalar remove ile kaldirır
     litodo.remove();
+  }
+
+  const todos = document.querySelectorAll(".list-group-item"); // mevcut güncel todoları yakalar
+
+  if (todos.length < 1) { // eger ekranda herhangi bir todo yoksa temizle ve filtreleme inputunu pasif yapar
+    filtertd.disabled = true;
+    btnreset.disabled = true;
   }
 }
 
@@ -111,8 +118,6 @@ function filtertodo(e) {
         todo.setAttribute("style", "display: none !important");
       }
     });
-  } else {
-    alertshow("warning", "Filtreleme İçin Lütfen Todo Giriniz");
   }
 }
 
@@ -124,4 +129,3 @@ function disablebtn() {
     btn.disabled = false;
   }
 }
-
